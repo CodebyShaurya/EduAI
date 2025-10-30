@@ -9,10 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'mono': ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'circuit-pattern': 'radial-gradient(circle at 25% 25%, hsl(var(--primary) / 0.1) 2px, transparent 2px), radial-gradient(circle at 75% 75%, hsl(var(--secondary) / 0.1) 2px, transparent 2px), linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -78,10 +82,37 @@ const config: Config = {
             height: '0',
           },
         },
+        'float': {
+          '0%, 100%': {
+            transform: 'translateY(0px)',
+          },
+          '50%': {
+            transform: 'translateY(-10px)',
+          },
+        },
+        'glow': {
+          'from': {
+            boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)',
+          },
+          'to': {
+            boxShadow: '0 0 30px rgba(59, 130, 246, 0.4)',
+          },
+        },
+        'matrix': {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            transform: 'translateY(-100%)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'float': 'float 6s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+        'matrix': 'matrix 20s linear infinite',
       },
     },
   },

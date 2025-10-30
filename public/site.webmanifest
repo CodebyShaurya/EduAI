@@ -1,0 +1,24 @@
+{
+  "name": "EduAI - AI-Powered Socratic Learning Platform",
+  "short_name": "EduAI",
+  "description": "Revolutionary AI tutor using the Socratic method for deep learning",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#3b82f6",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity", "utilities"]
+}
