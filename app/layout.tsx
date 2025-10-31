@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import SessionWrapper from '@/components/SessionWrapper';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
@@ -115,9 +116,16 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${jetbrainsMono.variable} antialiased`}>
-        <SessionWrapper>
-          {children}
-        </SessionWrapper>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionWrapper>
+            {children}
+          </SessionWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

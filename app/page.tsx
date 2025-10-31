@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Brain, MessageCircle, Lightbulb, Target, Users, TrendingUp, CircleCheck as CheckCircle, ArrowRight, BookOpen, Zap, Award, X, Sparkles, Code2, Database, Cpu, Terminal, GitBranch, Layers, Network, Hexagon, Binary, Activity, Shield, Rocket } from 'lucide-react';
 import AuthButton from '@/components/AuthButton';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const features = [
   {
@@ -131,16 +132,17 @@ export default function HomePage() {
                 EduAI
               </h1>
               <div className="flex items-center gap-2">
-                <Terminal className="h-3 w-3 text-muted-foreground" />
+                {/* <Terminal className="h-3 w-3 text-muted-foreground" /> */}
                 <span className="text-xs font-mono text-muted-foreground">v2.0.1 • Gemini AI</span>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            {/* <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 border border-border/50">
-              <Activity className="h-3 w-3 text-green-500 animate-pulse" />
-              <span className="text-xs font-mono text-muted-foreground">Online</span>
-            </div> */}
+            {/* <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 border border-border/50"> */}
+              {/* <Activity className="h-3 w-3 text-green-500 animate-pulse" /> */}
+              {/* <span className="text-xs font-mono text-muted-foreground">Online</span> */}
+            {/* </div> */}
+            <ThemeToggle />
             <AuthButton />
           </div>
         </div>
@@ -176,7 +178,11 @@ export default function HomePage() {
               </p>
               <div className="flex gap-6 justify-center flex-wrap">
                 <Link href="/chat">
-                  <Button size="lg" className="group relative bg-gradient-to-r from-primary via-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-black px-10 py-7 text-xl font-semibold shadow-2xl hover:shadow-primary/25 transition-all duration-300 border-gradient glow-primary hover:scale-105">
+                  <Button size="lg" 
+                  className="group relative bg-gradient-to-r from-primary via-primary to-secondary 
+                  hover:from-primary/90 hover:to-secondary/90  px-10 py-7 text-xl font-semibold text-foreground
+                  shadow-2xl hover:shadow-primary/25 transition-all duration-300 
+                  border-gradient glow-primary hover:scale-105">
                     <Rocket className="mr-3 h-6 w-6 group-hover:animate-bounce" />
                     Initialize Learning
                     <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
