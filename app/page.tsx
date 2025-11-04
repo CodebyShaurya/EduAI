@@ -112,8 +112,8 @@ export default function HomePage() {
       <div className="fixed inset-0 bg-circuit-pattern opacity-[0.03] pointer-events-none -z-10" />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5 pointer-events-none -z-10" />
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}} />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}} />
       </div>
       
       {/* Enhanced Header */}
@@ -149,6 +149,14 @@ export default function HomePage() {
       </header>
 
         {/* Enhanced Hero Section */}
+        <div className="absolute w-full z-10">
+            <img
+              alt="img"
+              loading="lazy"
+              className="w-full max-w-5xl mx-auto block px-4 sm:px-6 lg:px-8"
+              src="https://coinferencex.com/assets/3Bg.svg"
+            />
+          </div>
         <section className="relative py-32 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
             <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full glass-morphism border-gradient mb-12 group hover:scale-105 transition-transform">
@@ -166,12 +174,12 @@ export default function HomePage() {
             </div>
             
             <div className="max-w-5xl mx-auto">
-              <h1 className="text-7xl font-black mb-8 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 md:mb-8 leading-tight">
                 <span className="block text-gradient-primary">Learn Through</span>
                 <span className="block bg-gradient-to-r from-foreground via-primary to-secondary bg-clip-text text-transparent">Discovery</span>
-                <span className="block text-4xl font-semibold text-muted-foreground mt-2">Not Direct Answers</span>
+                <span className="block text-lg sm:text-2xl md:text-3xl font-semibold text-muted-foreground mt-2">Not Direct Answers</span>
               </h1>
-              <p className="text-2xl text-muted-foreground mb-12 leading-relaxed max-w-4xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto">
                 Our <code className="bg-primary/10 text-primary px-2 py-1 rounded font-mono text-lg">AI tutor</code> uses the 
                 <span className="text-primary font-bold"> Socratic method</span> to guide you toward understanding through 
                 <span className="text-secondary font-bold">intelligent questioning</span>, building lasting comprehension.
@@ -196,14 +204,14 @@ export default function HomePage() {
             </div>
             
             {/* Enhanced Tech Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-20 max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-12 md:mt-20 max-w-6xl mx-auto">
               <Card className="glass-morphism border-gradient hover:glow-primary transition-all duration-300 group">
                 <CardContent className="pt-8 pb-6">
                   <div className="flex items-center justify-center mb-4">
                     <GitBranch className="h-8 w-8 text-primary group-hover:animate-pulse" />
                   </div>
-                  <div className="text-4xl font-black text-primary mb-2 font-mono">2-3</div>
-                  <p className="text-sm text-muted-foreground font-medium">Diagnostic Queries</p>
+                  <div className="text-3xl sm:text-4xl font-black text-primary mb-2 font-mono">2-3</div>
+                  <p className="text-sm sm:text-base text-muted-foreground font-medium">Diagnostic Queries</p>
                 </CardContent>
               </Card>
               <Card className="glass-morphism border-gradient hover:glow-secondary transition-all duration-300 group">
@@ -237,20 +245,20 @@ export default function HomePage() {
           </div>
 
           {/* Enhanced Floating Tech Elements */}
-          <div className="absolute top-20 left-10 opacity-20 animate-float">
-            <Code2 className="h-24 w-24 text-primary" />
+          <div className="absolute top-20 left-10 opacity-20 animate-float hidden sm:block">
+            <Code2 className="h-20 w-20 sm:h-24 sm:w-24 text-primary" />
           </div>
-          <div className="absolute top-40 right-20 opacity-20 animate-float" style={{animationDelay: '2s'}}>
-            <Database className="h-20 w-20 text-secondary" />
+          <div className="absolute top-40 right-20 opacity-20 animate-float hidden sm:block" style={{animationDelay: '2s'}}>
+            <Database className="h-16 w-16 sm:h-20 sm:w-20 text-secondary" />
           </div>
-          <div className="absolute bottom-20 left-20 opacity-20 animate-float" style={{animationDelay: '4s'}}>
-            <Layers className="h-22 w-22 text-primary" />
+          <div className="absolute bottom-20 left-20 opacity-20 animate-float hidden md:block" style={{animationDelay: '4s'}}>
+            <Layers className="h-20 w-20 md:h-22 md:w-22 text-primary" />
           </div>
-          <div className="absolute top-1/2 right-10 opacity-15 animate-float" style={{animationDelay: '1s'}}>
-            <Terminal className="h-16 w-16 text-secondary" />
+          <div className="absolute top-1/2 right-10 opacity-15 animate-float hidden md:block" style={{animationDelay: '1s'}}>
+            <Terminal className="h-14 w-14 md:h-16 md:w-16 text-secondary" />
           </div>
-          <div className="absolute bottom-40 right-1/4 opacity-15 animate-float" style={{animationDelay: '3s'}}>
-            <Hexagon className="h-18 w-18 text-primary" />
+          <div className="absolute bottom-40 right-1/4 opacity-15 animate-float hidden lg:block" style={{animationDelay: '3s'}}>
+            <Hexagon className="h-16 w-16 lg:h-18 lg:w-18 text-primary" />
           </div>
         </section>
 
