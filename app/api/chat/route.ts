@@ -33,6 +33,9 @@ export async function POST(request: NextRequest) {
       // Subsequent interactions - assess and generate follow-up question
       const assessment = await socraticTeacher.assessUserUnderstanding(message, context.currentFocus);
       
+      // Generate feedback on user's answer
+      const feedback = await socraticTeacher.generateFeedback(message, context.currentFocus, assessment);
+      
       const updatedContextForQuestionGen: ConversationContext = {
         ...context,
         userLevel: assessment.level,
@@ -40,7 +43,10 @@ export async function POST(request: NextRequest) {
         currentFocus: assessment.keyMisunderstandings[0] || context.currentFocus,
       };
 
-      response = await socraticTeacher.generateSocraticQuestion(updatedContextForQuestionGen, message);
+      const nextQuestion = await socraticTeacher.generateSocraticQuestion(updatedContextForQuestionGen, message);
+      
+      // Combine feedback with next question
+      response = `${feedback}\n\n${nextQuestion}`;
       
       // After 3 questions, the response will be a summary.
       // We reset the questions list for the next topic.

@@ -71,17 +71,21 @@ export class SocraticTeacher {
     level: 'beginner' | 'intermediate' | 'advanced';
     keyMisunderstandings: string[];
     strengths: string[];
+    accuracyPercentage: number;
+    isCorrect: boolean;
   }> {
     const prompt = `
     Analyze this student response about ${topic}: "${userInput}"
     
-    Assess their understanding level and identify:
+    Assess their understanding level and provide detailed analysis:
     1. Understanding level (beginner/intermediate/advanced)
-    2. Key misunderstandings or gaps
-    3. Areas of strength
+    2. Key misunderstandings or gaps (be specific)
+    3. Areas of strength (what they got right)
+    4. Accuracy percentage (0-100)
+    5. Whether the answer is fundamentally correct (true/false)
     
     Respond with valid JSON only, and do NOT include any markdown, code fences, or explanatory text. Example:
-    {"level":"beginner","keyMisunderstandings":["..."],"strengths":["..."]}
+    {"level":"beginner","keyMisunderstandings":["specific error 1","specific error 2"],"strengths":["correct point 1","correct point 2"],"accuracyPercentage":65,"isCorrect":false}
     `;
 
     try {
@@ -90,7 +94,15 @@ export class SocraticTeacher {
       const raw = response.text();
       // Try to parse the model output robustly: strip markdown/code fences and extract JSON.
       try {
-        return parseJsonFromText(raw);
+        const parsed = parseJsonFromText(raw);
+        // Ensure we have the new fields with defaults
+        return {
+          level: parsed.level || 'beginner',
+          keyMisunderstandings: parsed.keyMisunderstandings || [],
+          strengths: parsed.strengths || [],
+          accuracyPercentage: parsed.accuracyPercentage || 0,
+          isCorrect: parsed.isCorrect || false
+        };
       } catch (parseErr) {
         console.error('[gemini] failed to parse JSON from model output:', raw);
         throw parseErr;
@@ -100,19 +112,72 @@ export class SocraticTeacher {
       return {
         level: 'beginner',
         keyMisunderstandings: [],
-        strengths: []
+        strengths: [],
+        accuracyPercentage: 0,
+        isCorrect: false
       };
+    }
+  }
+
+  async generateFeedback(userResponse: string, topic: string, assessment: {
+    level: 'beginner' | 'intermediate' | 'advanced';
+    keyMisunderstandings: string[];
+    strengths: string[];
+    accuracyPercentage: number;
+    isCorrect: boolean;
+  }): Promise<string> {
+    const prompt = `
+    You are a Socratic teacher providing detailed feedback on a student's answer. Your job is to:
+    
+    1. **Tell them exactly if their answer is correct or incorrect**
+    2. **Provide the correct answer clearly**
+    3. **Show their accuracy percentage**
+    4. **Explain what they got right and what they missed**
+
+    **Topic:** ${topic}
+    **Student's Answer:** "${userResponse}"
+    **Assessment:**
+    - Level: ${assessment.level}
+    - Accuracy: ${assessment.accuracyPercentage}%
+    - Is Correct: ${assessment.isCorrect}
+    - Strengths: ${assessment.strengths.join(', ') || 'None identified'}
+    - Misunderstandings: ${assessment.keyMisunderstandings.join(', ') || 'None identified'}
+
+    **Output Format:**
+    Feedback: **Correctness:** ${assessment.isCorrect ? 'Correct' : assessment.accuracyPercentage > 50 ? 'Partially Correct' : 'Incorrect'} - You're about ${assessment.accuracyPercentage}% accurate!
+
+    **What you got right:** ${assessment.strengths.length > 0 ? assessment.strengths.join(', ') : 'Let me help you identify the key concepts'}
+
+    **The correct answer:** [Provide the complete, accurate answer to the question about ${topic}]
+
+    **What to improve:** ${assessment.keyMisunderstandings.length > 0 ? assessment.keyMisunderstandings.join(', ') : 'Focus on understanding the core concepts better'}
+
+    Be encouraging but honest about accuracy. Always provide the complete correct answer so they can learn from it. Use clear, simple language appropriate for a ${assessment.level} level student.
+    `;
+
+    try {
+      const result = await this.model.generateContent(prompt);
+      const response = await result.response;
+      const text = sanitizeModelText(response.text()).trim();
+      
+      // Extract just the feedback content
+      const feedbackMatch = text.match(/Feedback:\s*([\s\S]+)/);
+      return feedbackMatch ? feedbackMatch[1].trim() : text;
+    } catch (error: any) {
+      console.error('Error generating feedback:', error?.status, error?.statusText, error);
+      const correctnessText = assessment.isCorrect ? 'Correct' : assessment.accuracyPercentage > 50 ? 'Partially Correct' : 'Incorrect';
+      return `**Correctness:** ${correctnessText} - You're about ${assessment.accuracyPercentage}% accurate! Let me help you understand this better.`;
     }
   }
 
   async generateSocraticQuestion(context: ConversationContext, userResponse: string): Promise<string> {
     const prompt = `
-    You are a Socratic teacher. Your goal is to guide the student to discover answers themselves.
+    You are a Socratic teacher. Your goal is to guide the student to discover answers themselves while providing clear feedback.
 
     **Rules:**
-    1.  **After 3 questions, you MUST provide a concise explanation** that builds on what the user has said. Do not just give a generic answer.
-    2.  For the first 3 questions, DO NOT give direct answers. Ask thoughtful questions and provide short, scaffolded hints.
-    3.  Always be concise and encouraging.
+    1.  **After 3 questions, you MUST provide a comprehensive summary** that includes the correct answers to all previous questions.
+    2.  For the first 3 questions, ask thoughtful questions and provide hints, but DO NOT give direct answers yet.
+    3.  Always be encouraging and acknowledge when students are on the right track.
 
     **Context:**
     - Topic: ${context.topic}
@@ -126,15 +191,21 @@ export class SocraticTeacher {
     - Otherwise, provide a **SocraticQuestion**.
 
     **Output Format (SocraticQuestion):**
-    Question: <one focused question that builds on the student's response>
-    Hint: <a brief scaffolded hint that nudges the student but does NOT reveal the answer; 1-2 short sentences>
-    FollowUp: <a short follow-up question to check understanding after the hint>
+    Question: <one focused question that builds on the student's response and helps them think deeper>
+    Hint: <a scaffolded hint that nudges them toward the right answer without revealing it; be specific about what to consider>
+    FollowUp: <a follow-up question to check their understanding after the hint>
 
     **Output Format (SummaryAnswer):**
-    Summary: <a concise explanation that directly addresses the student's last response and the current focus, incorporating what they've already understood. Start with something like "Great progress! Let's connect the dots.">
-    NextStep: <a new open-ended question to move the conversation forward to a related sub-topic.>
+    Summary: <a comprehensive explanation that:
+    - Acknowledges their learning journey
+    - Provides the correct answers to the key questions we've explored
+    - Explains the core concepts clearly
+    - Shows how their responses helped us get to these answers
+    Start with something encouraging like "Excellent work! Let's bring everything together.">
+    
+    NextStep: <suggest a related topic or deeper question to explore next, building on what they've learned>
 
-    Be concise and avoid any extra commentary or markdown. Only return the labeled lines based on the decision.
+    Be encouraging, clear, and educational. When providing the summary, make sure to include the actual correct answers they've been working toward.
     `;
 
     try {
@@ -143,28 +214,35 @@ export class SocraticTeacher {
       return sanitizeModelText(response.text()).trim();
     } catch (error: any) {
       console.error('Error generating question:', error?.status, error?.statusText, error);
-      return "What do you think might be the key concept we should explore here?";
+      if (context.previousQuestions.length >= 3) {
+        return `Summary: Great work exploring ${context.topic}! You've made excellent progress in understanding the key concepts. Let me provide you with the complete picture and correct answers to help solidify your learning.\n\nNextStep: What aspect of ${context.topic} would you like to explore further?`;
+      }
+      return "Question: What do you think might be the key concept we should explore here?\nHint: Think about the fundamental principles involved.\nFollowUp: Can you explain your reasoning?";
     }
   }
 
   async generateInitialQuestion(topic: string): Promise<string> {
     const prompt = `
-    You are a Socratic teacher. For a new topic, first ask 2–3 short diagnostic questions to gauge what the student already knows.
+    You are a Socratic teacher starting a new learning session. For the topic "${topic}", create an engaging opening that:
 
-    Topic: "${topic}"
+    1. **Asks 2-3 diagnostic questions** to understand what the student already knows
+    2. **Explains that you'll provide feedback** on whether their answers are correct
+    3. **Sets clear expectations** about the learning process
 
-    Output format (plain text):
-    Q1: <first diagnostic question — open-ended, invites prior knowledge>
-    Q2: <second diagnostic question — probes misconceptions or depth>
-    Q3: <optional third diagnostic question — asks about examples or confidence>
+    **Output format (plain text):**
+    Welcome! Let's explore **${topic}** together. I'll ask you some questions to understand what you already know, and I'll give you feedback on whether your answers are correct, along with the right answers to help you learn.
 
-    After these diagnostic questions, include a single brief Hint line that gives a small, non-directive scaffold (no direct answer). Example:
-    Hint: <a one-sentence nudge to help them articulate what they know; do NOT give the solution>
+    **Q1:** <first diagnostic question — open-ended, invites prior knowledge>
+    **Q2:** <second diagnostic question — probes deeper understanding or examples>
+    **Q3:** <third diagnostic question — asks about practical application or confidence>
+
+    **Hint:** <a brief, encouraging nudge that helps them get started — no direct answers>
 
     Requirements:
-    - Keep each question short and focused.
-    - Do NOT provide direct answers or full explanations.
-    - Do NOT include any markdown or code fences; return only the labeled lines above.
+    - Keep each question clear and focused
+    - Make it clear that honest answers help me teach better
+    - Encourage them to share what they think, even if unsure
+    - Do NOT include markdown or code fences; return only plain text
     `;
 
     try {
@@ -173,7 +251,7 @@ export class SocraticTeacher {
       return sanitizeModelText(response.text()).trim();
     } catch (error: any) {
       console.error('Error generating initial question:', error?.status, error?.statusText, error);
-      return `What comes to mind when you think about ${topic}? Share your initial thoughts.`;
+      return `Welcome! Let's explore **${topic}** together. I'll help you learn by asking questions and giving you feedback on your answers.\n\n**Q1:** What comes to mind when you think about ${topic}?\n**Q2:** Can you give me an example related to ${topic}?\n**Q3:** How confident do you feel about your current understanding?\n\n**Hint:** Share your honest thoughts - there are no wrong answers at this stage!`;
     }
   }
 }

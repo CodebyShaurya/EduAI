@@ -153,7 +153,7 @@ export default function HomePage() {
             <img
               alt="img"
               loading="lazy"
-              className="w-full max-w-5xl mx-auto block px-4 sm:px-6 lg:px-8"
+              className="w-full "
               src="https://coinferencex.com/assets/3Bg.svg"
             />
           </div>

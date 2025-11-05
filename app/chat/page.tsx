@@ -22,10 +22,13 @@ export default function ChatPage() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="relative w-16 h-16 mx-auto mb-6">
+            <div className="absolute inset-0 rounded-full border-4 border-primary/20"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-primary border-r-primary animate-spin"></div>
+          </div>
+          <p className="text-base md:text-lg text-muted-foreground font-medium">Initializing your learning session...</p>
         </div>
       </div>
     );
@@ -36,25 +39,14 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b bg-white/80 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-              EduAI Tutor
-            </h1>
-          </div>
-          <AuthButton />
-        </div>
-      </header>
+    <div className=" bg-gradient-to-br from-background via-background to-primary/5">
+      
 
-      <main>
+      {/* Header */}
+     
+
+      {/* Main Content */}
+      <main className="relative z-10">
         <ChatInterface />
       </main>
     </div>
