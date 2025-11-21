@@ -56,10 +56,7 @@ export interface ConversationContext {
 }
 
 export class SocraticTeacher {
-  // Allow overriding the model via env var. Default to a Gemini flash model that
-  // is commonly available when Gemini access is enabled for the project.
   private chosenModelName = process.env.GOOGLE_AI_MODEL || 'models/gemini-2.5-flash';
-  // Log which model is being used so it's easy to debug.
   constructor() {
     // ...no-op constructor body, used only to ensure logging runs when class is instantiated.
     console.info('[gemini] using model:', this.chosenModelName);
