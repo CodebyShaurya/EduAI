@@ -127,7 +127,7 @@ export default function ChatInterface() {
 
   const renderAIMessage = (content: string) => {
     const parsed = parseAIResponse(content);
-    
+
     // If we have structured content, render it formatted
     if (parsed.feedback || parsed.questions || parsed.question || parsed.summary) {
       return (
@@ -145,13 +145,16 @@ export default function ChatInterface() {
                   <h3 className="font-semibold text-cyan-900 dark:text-cyan-100 text-sm sm:text-base mb-2">📊 Your Answer Feedback</h3>
                   <div className="space-y-2 text-sm sm:text-base text-cyan-800 dark:text-cyan-200 leading-relaxed">
                     {parsed.feedback.split('\n\n').map((section, idx) => (
-                      <div key={idx} className={cn(
-                        "p-2 rounded",
-                        section.includes('**Correctness:**') && "bg-white/50 dark:bg-black/20 border border-cyan-200 dark:border-cyan-700",
-                        section.includes('**What you got right:**') && "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700",
-                        section.includes('**The correct answer:**') && "bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700",
-                        section.includes('**What to improve:**') && "bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700"
-                      )}>
+                      <div
+                        key={idx}
+                        className={cn(
+                          "p-2 rounded",
+                          section.includes('**Correctness:**') && "bg-white/50 dark:bg-black/20 border border-cyan-200 dark:border-cyan-700",
+                          section.includes('**What you got right:**') && "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700",
+                          section.includes('**The correct answer:**') && "bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700",
+                          section.includes('**What to improve:**') && "bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700"
+                        )}
+                      >
                         {renderBold(section)}
                       </div>
                     ))}
@@ -160,16 +163,18 @@ export default function ChatInterface() {
               </div>
             </div>
           )}
-          
+
           {/* Initial diagnostic questions */}
           {parsed.questions && parsed.questions.length > 0 && (
             <div className="space-y-2 sm:space-y-3">
               <h3 className="font-bold text-base sm:text-lg text-foreground">Questions</h3>
-              {parsed.questions.map((q, idx) => (
-                <p key={idx} className="text-sm sm:text-base text-muted-foreground leading-relaxed break-words">
-                  {idx + 1}. {renderBold(q)}
-                </p>
-              ))}
+              <ol className="list-decimal list-inside space-y-1">
+                {parsed.questions.map((q, idx) => (
+                  <li key={idx} className="text-sm sm:text-base text-muted-foreground leading-relaxed break-words">
+                    {renderBold(q)}
+                  </li>
+                ))}
+              </ol>
             </div>
           )}
           
@@ -465,12 +470,8 @@ export default function ChatInterface() {
           {/* Sidebar Header */}
           <header className="py-2.5 px-4 flex justify-between items-center gap-x-2">
             <div className="-ms-2 flex items-center gap-x-1">
-              <Link href="/" className="shrink-0 inline-flex justify-center items-center size-9 rounded-lg text-xl font-semibold hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
-                <svg className="shrink-0 size-5 text-cyan-700 dark:text-cyan-400" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M18.0835 3.23358C9.88316 3.23358 3.23548 9.8771 3.23548 18.0723V35.5832H0.583496V18.0723C0.583496 8.41337 8.41851 0.583252 18.0835 0.583252C27.7485 0.583252 35.5835 8.41337 35.5835 18.0723C35.5835 27.7312 27.7485 35.5614 18.0835 35.5614H16.7357V32.911H18.0835C26.2838 32.911 32.9315 26.2675 32.9315 18.0723C32.9315 9.8771 26.2838 3.23358 18.0835 3.23358Z" fill="currentColor" />
-                  <path fillRule="evenodd" clipRule="evenodd" d="M18.0833 8.62162C12.8852 8.62162 8.62666 12.9245 8.62666 18.2879V35.5833H5.97468V18.2879C5.97468 11.5105 11.3713 5.97129 18.0833 5.97129C24.7954 5.97129 30.192 11.5105 30.192 18.2879C30.192 25.0653 24.7954 30.6045 18.0833 30.6045H16.7355V27.9542H18.0833C23.2815 27.9542 27.54 23.6513 27.54 18.2879C27.54 12.9245 23.2815 8.62162 18.0833 8.62162Z" fill="currentColor" />
-                  <path d="M24.8225 18.1012C24.8225 21.8208 21.8053 24.8361 18.0833 24.8361C14.3614 24.8361 11.3442 21.8208 11.3442 18.1012C11.3442 14.3815 14.3614 11.3662 18.0833 11.3662C21.8053 11.3662 24.8225 14.3815 24.8225 18.1012Z" fill="currentColor" />
-                </svg>
+              <Link href="/" className="shrink-0 inline-flex justify-center items-center size-9 rounded-lg text-xl font-semibold  ">
+                <img src="/logo.png" alt="Logo" className="size-6 h-12" />
               </Link>
 
               <button type="button" className="flex md:hidden justify-center items-center gap-x-3 size-6 bg-white border border-gray-200 text-sm text-gray-600 hover:bg-gray-100 rounded-full disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" onClick={() => setIsSidebarOpen(false)}>
@@ -488,7 +489,7 @@ export default function ChatInterface() {
                     startNewChat();
                     setIsSidebarOpen(false);
                   }}
-                  className="group relative w-full flex items-center gap-1 py-1.5 px-2.5 text-sm bg-gray-200/70 text-cyan-700 rounded-lg before:absolute before:inset-y-0 before:-start-2 before:rounded-e-full before:w-1 before:h-full before:bg-cyan-700 hover:bg-gray-200/70 focus:outline-hidden focus:bg-gray-200/70 dark:bg-neutral-700 dark:text-cyan-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                  className="group relative w-full flex items-center gap-1 py-1.5 px-2.5 text-sm bg-gray-200/70 text-blue-700 rounded-lg before:absolute before:inset-y-0 before:-start-2 before:rounded-e-full before:w-1 before:h-full before:bg-blue-700 hover:bg-gray-200/70 focus:outline-hidden focus:bg-gray-200/70 dark:bg-neutral-700 dark:text-blue-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                 >
                   <span className="-ms-[5px] flex shrink-0 justify-center items-center size-6">
                     <Plus className="shrink-0 size-4 group-hover:scale-115 group-focus:scale-115 transition-transform duration-300" />
@@ -688,8 +689,9 @@ export default function ChatInterface() {
         {!hasStarted ? (
           <div className="h-full flex flex-col justify-between sm:justify-center max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-16">
             <div className="flex flex-col justify-center items-center grow sm:flex-none">
+              <img src="./logo.png" alt="Logo" className='h-12' />
               <h1 className="mb-8 text-3xl text-center text-gray-800 dark:text-neutral-200">
-                What can I help with?
+                Mention the topic you need help with to get started!
               </h1>
             </div>
 
@@ -701,7 +703,7 @@ export default function ChatInterface() {
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && topic.trim() && startNewTopic(topic)}
-                    className="max-h-36 mt-2 pt-4 pb-2 ps-2 pe-4 block w-full bg-transparent border-transparent resize-none text-gray-800 placeholder-gray-500 focus:outline-hidden focus:border-transparent focus:ring-transparent disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:text-neutral-200 dark:placeholder-neutral-500 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500" 
+                    className="max-h-36 mt-2 pt-4 pb-2 ps-2 pe-4 block w-full bg-transparent border-transparent resize-none text-gray-800 placeholder-gray-500  disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:text-neutral-200 dark:placeholder-neutral-500 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500" 
                     placeholder="Ask anything..."
                   />
 
@@ -777,7 +779,7 @@ export default function ChatInterface() {
                       <button 
                         onClick={() => startNewTopic(topic)}
                         disabled={!topic.trim() || isLoading}
-                        className="inline-flex shrink-0 justify-center items-center size-8 text-sm font-medium rounded-lg text-white bg-cyan-700 hover:bg-cyan-600 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-cyan-600"
+                        className="inline-flex shrink-0 justify-center items-center size-8 text-sm font-medium rounded-lg text-white bg-blue-400 hover:bg-blue-600  focus:outline-hidden focus:bg-cyan-600"
                       >
                         <Send className="shrink-0 size-4 rotate-90" />
                       </button>
@@ -788,7 +790,7 @@ export default function ChatInterface() {
 
               {/* Quick Action Tags */}
               <div className="mt-4">
-                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
+                {/* <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
                   {[
                     { icon: "❤️", label: "Health" },
                     { icon: "🎓", label: "Learn" },
@@ -806,7 +808,7 @@ export default function ChatInterface() {
                       {tag.label}
                     </button>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

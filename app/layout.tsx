@@ -26,20 +26,20 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://eduai.app'),
+  metadataBase: new URL('https://edu-ai-opal.vercel.app/ '),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://eduai.app',
+    url: 'https://edu-ai-opal.vercel.app/ ',
     title: 'EduAI - AI-Powered Socratic Learning Platform',
     description: 'Revolutionary AI tutor using the Socratic method for deep learning. Build critical thinking through guided discovery.',
     siteName: 'EduAI',
     images: [
       {
-        url: '/og-image.png',
+        url: '/logo_black.png',
         width: 1200,
         height: 630,
         alt: 'EduAI - AI-Powered Socratic Learning Platform',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'EduAI - AI-Powered Socratic Learning Platform',
     description: 'Revolutionary AI tutor using the Socratic method for deep learning.',
-    images: ['/og-image.png'],
+    images: ['/logo_black.png'],
     creator: '@eduai_platform',
   },
   robots: {
@@ -100,8 +100,8 @@ export default function RootLayout({
               '@type': 'EducationalOrganization',
               name: 'EduAI',
               description: 'AI-Powered Socratic Learning Platform',
-              url: 'https://eduai.app',
-              logo: 'https://eduai.app/logo.png',
+              url: 'https://edu-ai-opal.vercel.app',
+              logo: 'https://edu-ai-opal.vercel.app/logo_black.png',
               sameAs: [
                 'https://twitter.com/eduai_platform',
                 'https://github.com/eduai-platform'

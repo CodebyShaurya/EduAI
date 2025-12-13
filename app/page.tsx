@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Brain, MessageCircle, Lightbulb, Target, Users, TrendingUp, CircleCheck as CheckCircle, ArrowRight, BookOpen, Zap, Award, X, Sparkles, Code2, Database, Cpu, Terminal, GitBranch, Layers, Network, Hexagon, Binary, Activity, Shield, Rocket } from 'lucide-react';
+import { Brain, MessageCircle, Lightbulb, Target, Users, TrendingUp, CircleCheck as CheckCircle, ArrowRight, BookOpen,GraduationCap, Zap, Award, X, Sparkles, Presentation, Cpu, Terminal, GitBranch, Microscope, Network, Hexagon, Binary, Activity, Shield, Rocket, Book } from 'lucide-react';
 import AuthButton from '@/components/AuthButton';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
@@ -121,16 +121,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative group">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary to-secondary opacity-75 blur group-hover:opacity-100 transition-opacity" />
-              <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-primary via-primary to-secondary flex items-center justify-center shadow-xl border border-white/20">
-                <Hexagon className="h-6 w-6 text-primary-foreground animate-pulse" />
+                <img src="./logo.png" alt="Logo" className="h-8 " />
                 <div className="absolute inset-0 rounded-xl bg-white/10 animate-ping" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gradient-primary tracking-tight">
-                EduAI
-              </h1>
               <div className="flex items-center gap-2">
                 {/* <Terminal className="h-3 w-3 text-muted-foreground" /> */}
                 <span className="text-xs font-mono text-muted-foreground">v2.0.1 • Gemini AI</span>
@@ -197,7 +189,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <Button size="lg" variant="outline" className="px-10 py-7 text-xl font-semibold border-2 border-border hover:border-primary/50 glass-morphism hover:bg-primary/5 group">
-                  <Terminal className="mr-3 h-6 w-6 group-hover:text-primary transition-colors" />
+                  <GraduationCap className="mr-3 h-6 w-6 group-hover:text-primary transition-colors" />
                   <span className="font-mono">explore</span>
                 </Button>
               </div>
@@ -208,7 +200,7 @@ export default function HomePage() {
               <Card className="glass-morphism border-gradient hover:glow-primary transition-all duration-300 group">
                 <CardContent className="pt-8 pb-6">
                   <div className="flex items-center justify-center mb-4">
-                    <GitBranch className="h-8 w-8 text-primary group-hover:animate-pulse" />
+                    <Brain className="h-8 w-8 text-primary group-hover:animate-pulse" />
                   </div>
                   <div className="text-3xl sm:text-4xl font-black text-primary mb-2 font-mono">2-3</div>
                   <p className="text-sm sm:text-base text-muted-foreground font-medium">Diagnostic Queries</p>
@@ -246,16 +238,16 @@ export default function HomePage() {
 
           {/* Enhanced Floating Tech Elements */}
           <div className="absolute top-20 left-10 opacity-20 animate-float hidden sm:block">
-            <Code2 className="h-20 w-20 sm:h-24 sm:w-24 text-primary" />
+            <Presentation className="h-20 w-20 sm:h-24 sm:w-24 text-primary" />
           </div>
           <div className="absolute top-40 right-20 opacity-20 animate-float hidden sm:block" style={{animationDelay: '2s'}}>
-            <Database className="h-16 w-16 sm:h-20 sm:w-20 text-secondary" />
+            <Lightbulb className="h-16 w-16 sm:h-20 sm:w-20 text-secondary" />
           </div>
           <div className="absolute bottom-20 left-20 opacity-20 animate-float hidden md:block" style={{animationDelay: '4s'}}>
-            <Layers className="h-20 w-20 md:h-22 md:w-22 text-primary" />
+            <Microscope className="h-20 w-20 md:h-22 md:w-22 text-primary" />
           </div>
           <div className="absolute top-1/2 right-10 opacity-15 animate-float hidden md:block" style={{animationDelay: '1s'}}>
-            <Terminal className="h-14 w-14 md:h-16 md:w-16 text-secondary" />
+            <Book className="h-14 w-14 md:h-16 md:w-16 text-secondary" />
           </div>
           <div className="absolute bottom-40 right-1/4 opacity-15 animate-float hidden lg:block" style={{animationDelay: '3s'}}>
             <Hexagon className="h-16 w-16 lg:h-18 lg:w-18 text-primary" />
@@ -268,8 +260,8 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-20">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                <Terminal className="h-4 w-4 text-primary" />
-                <span className="text-sm font-mono text-primary">SYSTEM.FEATURES</span>
+                <GraduationCap className="h-4 w-4 text-primary" />
+                <span className="text-sm font-mono text-primary">FEATURES</span>
               </div>
               <h2 className="text-5xl font-black mb-6 text-gradient-primary">Why Choose Socratic Learning?</h2>
               <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -305,8 +297,8 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-20">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-                <GitBranch className="h-4 w-4 text-secondary" />
-                <span className="text-sm font-mono text-secondary">COMPARISON.MATRIX</span>
+                <BookOpen className="h-4 w-4 text-secondary" />
+                <span className="text-sm font-mono text-secondary">COMPARISON</span>
               </div>
               <h2 className="text-5xl font-black mb-6 text-gradient-primary">EduAI vs Traditional AI Learning</h2>
               <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -324,7 +316,7 @@ export default function HomePage() {
                       <th className="text-center p-8">
                         <div className="flex flex-col items-center gap-3">
                           <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-xl border border-white/20 glow-primary">
-                            <Hexagon className="h-7 w-7 text-primary-foreground" />
+                            <img src="/logo_black.png" className="h-9 w-9 text-primary-foreground" />
                           </div>
                           <span className="font-black text-foreground text-lg">EduAI</span>
                           <span className="text-xs font-mono text-primary">v2.0.1</span>
@@ -346,7 +338,7 @@ export default function HomePage() {
                       <tr key={index} className="border-b border-border/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 group">
                         <td className="p-8 font-bold text-foreground text-lg group-hover:text-primary transition-colors">{item.feature}</td>
                         <td className="p-8">
-                          <div className="flex items-center justify-center gap-4">
+                          <div className="flex items-center gap-4">
                             <div className="p-2 rounded-full bg-green-500/10 border border-green-500/20">
                               <item.eduaiIcon className="h-6 w-6 text-green-500 flex-shrink-0" />
                             </div>
@@ -354,7 +346,7 @@ export default function HomePage() {
                           </div>
                         </td>
                         <td className="p-8">
-                          <div className="flex items-center justify-center gap-4">
+                          <div className="flex items-center  gap-4">
                             <div className="p-2 rounded-full bg-red-500/10 border border-red-500/20">
                               <item.gptIcon className="h-6 w-6 text-red-500 flex-shrink-0" />
                             </div>
@@ -477,16 +469,16 @@ export default function HomePage() {
           {/* Advanced Tech Pattern Overlay */}
           <div className="absolute inset-0 opacity-15">
             <div className="absolute top-10 left-10 animate-float">
-              <Code2 className="h-40 w-40" />
+              <Presentation className="h-40 w-40" />
             </div>
             <div className="absolute bottom-10 right-10 animate-float" style={{animationDelay: '2s'}}>
-              <Database className="h-36 w-36" />
+              <Lightbulb className="h-36 w-36" />
             </div>
             <div className="absolute top-1/2 left-1/4 animate-float" style={{animationDelay: '1s'}}>
-              <Terminal className="h-24 w-24" />
+              <GraduationCap className="h-24 w-24" />
             </div>
             <div className="absolute bottom-1/4 left-10 animate-float" style={{animationDelay: '3s'}}>
-              <Layers className="h-28 w-28" />
+              <Microscope className="h-28 w-28" />
             </div>
           </div>
           <div className="absolute inset-0 bg-circuit-pattern opacity-10" />
@@ -538,11 +530,11 @@ export default function HomePage() {
             </p>
             <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
-                <Terminal className="h-4 w-4" />
+                <GraduationCap className="h-4 w-4" />
                 <span className="font-mono">Powered by Gemini AI</span>
               </div>
               <div className="flex items-center gap-2">
-                {/* <Code2 className="h-4 w-4" /> */}
+                {/* <Presentation className="h-4 w-4" /> */}
                 {/* <span className="font-mono">Next.js + Tailwind</span> */}
               </div>
               <div className="flex items-center gap-2">
