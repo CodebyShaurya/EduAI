@@ -471,7 +471,7 @@ export default function ChatInterface() {
           <header className="py-2.5 px-4 flex justify-between items-center gap-x-2">
             <div className="-ms-2 flex items-center gap-x-1">
               <Link href="/" className="shrink-0 inline-flex justify-center items-center size-9 rounded-lg text-xl font-semibold  ">
-                <img src="/logo.png" alt="Logo" className="size-6 h-12" />
+                <img src="/Logo.png" alt="Logo" className="size-6 h-12" />
               </Link>
 
               <button type="button" className="flex md:hidden justify-center items-center gap-x-3 size-6 bg-white border border-gray-200 text-sm text-gray-600 hover:bg-gray-100 rounded-full disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" onClick={() => setIsSidebarOpen(false)}>
@@ -689,7 +689,7 @@ export default function ChatInterface() {
         {!hasStarted ? (
           <div className="h-full flex flex-col justify-between sm:justify-center max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-16">
             <div className="flex flex-col justify-center items-center grow sm:flex-none">
-              <img src="./logo.png" alt="Logo" className='h-12' />
+              <img src="./Logo.png" alt="Logo" className='h-12' />
               <h1 className="mb-8 text-3xl text-center text-gray-800 dark:text-neutral-200">
                 Mention the topic you need help with to get started!
               </h1>

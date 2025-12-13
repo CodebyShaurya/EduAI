@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: 'EduAI',
     images: [
       {
-        url: '/logo_black.png',
+        url: '/Logo_black.png',
         width: 1200,
         height: 630,
         alt: 'EduAI - AI-Powered Socratic Learning Platform',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'EduAI - AI-Powered Socratic Learning Platform',
     description: 'Revolutionary AI tutor using the Socratic method for deep learning.',
-    images: ['/logo_black.png'],
+    images: ['/Logo_black.png'],
     creator: '@eduai_platform',
   },
   robots: {
@@ -101,7 +101,7 @@ export default function RootLayout({
               name: 'EduAI',
               description: 'AI-Powered Socratic Learning Platform',
               url: 'https://edu-ai-opal.vercel.app',
-              logo: 'https://edu-ai-opal.vercel.app/logo_black.png',
+              logo: 'https://edu-ai-opal.vercel.app/Logo_black.png',
               sameAs: [
                 'https://twitter.com/eduai_platform',
                 'https://github.com/eduai-platform'

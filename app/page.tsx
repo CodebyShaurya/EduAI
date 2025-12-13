@@ -121,7 +121,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative group">
-                <img src="./logo.png" alt="Logo" className="h-8 " />
+                <img src="./Logo.png" alt="Logo" className="h-8 " />
                 <div className="absolute inset-0 rounded-xl bg-white/10 animate-ping" />
               <div className="flex items-center gap-2">
                 {/* <Terminal className="h-3 w-3 text-muted-foreground" /> */}
@@ -316,7 +316,7 @@ export default function HomePage() {
                       <th className="text-center p-8">
                         <div className="flex flex-col items-center gap-3">
                           <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-xl border border-white/20 glow-primary">
-                            <img src="/logo_black.png" className="h-9 w-9 text-primary-foreground" />
+                            <img src="/Logo_black.png" className="h-9 w-9 text-primary-foreground" />
                           </div>
                           <span className="font-black text-foreground text-lg">EduAI</span>
                           <span className="text-xs font-mono text-primary">v2.0.1</span>
